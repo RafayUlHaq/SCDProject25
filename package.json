@@ -1,0 +1,14 @@
+{
+  "name": "scdproject25",
+  "version": "1.0.0",
+  "description": "NodeVault - CRUD operations with MongoDB",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "dependencies": {
+    "mongoose": "^5.13.21",
+    "dotenv": "^16.3.1"
+  }
+}
+
