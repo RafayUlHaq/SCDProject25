@@ -10,26 +10,22 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - scd-mongo-data:/data/db
-    networks:
-      - scd-net
+    ports:
+      - "27017:27017"
 
   backend:
-    image: rafayulhaq/scdproject25-backend:prod
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: scd-backend
     restart: unless-stopped
     environment:
       NODE_ENV: ${NODE_ENV}
       MONGODB_URI: ${MONGODB_URI}
     ports:
-      - "${BACKEND_PORT}:3000"
+      - "${BACKEND_PORT:-3000}:3000"
     depends_on:
       - mongo
-    networks:
-      - scd-net
 
 volumes:
   scd-mongo-data:
-
-networks:
-  scd-net:
-    driver: bridge
