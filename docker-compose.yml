@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+  mongo:
+    image: mongo:6
+    container_name: scd-mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - scd-mongo-data:/data/db
+    networks:
+      - scd-net
+
+  backend:
+    image: rafayulhaq/scdproject25-backend:prod
+    container_name: scd-backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      MONGODB_URI: ${MONGODB_URI}
+    ports:
+      - "${BACKEND_PORT}:3000"
+    depends_on:
+      - mongo
+    networks:
+      - scd-net
+
+volumes:
+  scd-mongo-data:
+
+networks:
+  scd-net:
+    driver: bridge
