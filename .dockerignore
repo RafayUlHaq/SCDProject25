@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+.env
+.env.example.txt
+backups
+export.txt
+data
+.DS_Store
+*.log
+
